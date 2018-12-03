@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import ScoreCard from './ScoreCard';
+
 import './App.css';
 
 class App extends Component {
@@ -41,12 +43,16 @@ class App extends Component {
   _scoresAsCards() {
     const cards = this.state.scores.map(score => {
       return (
-        <div key={score.id}>
-          <h2>
-            Name: {score.name} // Score: {score.score}
-            </h2>
-            <button onClick={() => this._incrementScoreById(score.id)}>+</button>
-        </div>
+        <ScoreCard
+          key={score.id}
+          id={score.id}
+          name={score.name}
+          score={score.score}
+          // handleClick={this._incrementScoreById.bind(this)} using bind
+          handleClick={((e) => this._incrementScoreById(e))}
+
+        />
+
       );
     });
     return cards;
@@ -74,34 +80,34 @@ class App extends Component {
   // }
   // vers 2: .map, using a shorthand to copy values out of the original
   // _incrementScoreById(id) {
-    // find the player in this.state.scores
-    // increment their score
-    // const newScores = this.state.scores.map(score => {
-    //   if(score.id !== id) {
-    //     return score;
-    // } else {
-    //   return {
-    //     ...score,
-    //     score: score.score +1
-    //   };
-    // }
-    // });
-    // and call this.setState
-//   this.setState({
-//     scores: newScores
-//   })
+  // find the player in this.state.scores
+  // increment their score
+  // const newScores = this.state.scores.map(score => {
+  //   if(score.id !== id) {
+  //     return score;
+  // } else {
+  //   return {
+  //     ...score,
+  //     score: score.score +1
+  //   };
+  // }
+  // });
+  // and call this.setState
+  //   this.setState({
+  //     scores: newScores
+  //   })
 
-// }
+  // }
 
   // vers 3: .map, object copy + ternary + implicit return
   // using a shorthand to copy values out of the original score
   // _incrementScoreById(id) {
-    // find the player in this.state.score
-    // increment their score
-    // const newScores = this.state.scores.map(data => {
-    //   return data.id !== id ? data : { ...data, score: data.score + 1};
-    // });
-    // and calling this.setState
+  // find the player in this.state.score
+  // increment their score
+  // const newScores = this.state.scores.map(data => {
+  //   return data.id !== id ? data : { ...data, score: data.score + 1};
+  // });
+  // and calling this.setState
   //   this.setState({
   //     scores: newScores
   //   });
